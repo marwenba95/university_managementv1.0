@@ -11,8 +11,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // Register global middleware here
+        // You can add more middleware classes here if needed
     })
+    ->withMiddleware([
+        // Register route-specific middleware here
+        'checkRole' => App\Http\Middleware\CheckRole::class,
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+
+    
