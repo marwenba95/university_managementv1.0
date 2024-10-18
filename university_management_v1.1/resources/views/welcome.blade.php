@@ -16,29 +16,8 @@
 </head>
 <body class="antialiased">
 
-    <!-- Navbar -->
-    <nav class="bg-gray-800 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="/" class="text-white text-lg font-semibold">MyLaravelApp</a>
-
-            <!-- Authentication Links -->
-            <div class="flex space-x-4">
-                @guest
-                    <a href="{{ route('login') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Login</a>
-                    <a href="{{ route('register') }}" class="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Register</a>
-                @else
-                    <a href="{{ route('logout') }}" class="text-white hover:bg-red-600 px-3 py-2 rounded-md text-sm font-medium"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
-                    </a>
-
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
-                        @csrf
-                    </form>
-                @endguest
-            </div>
-        </div>
-    </nav>
+   
+    @include("navigation")
 
     <!-- Content -->
     <div class="container mx-auto mt-6 dark:bg-slate-800">
