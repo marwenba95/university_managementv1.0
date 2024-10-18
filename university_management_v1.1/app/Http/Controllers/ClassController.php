@@ -16,6 +16,12 @@ class ClassController extends Controller
         return view('classes.index', compact('classes'));
     }
 
+    public function show($id)
+    {
+        $class = ClassModel::findOrFail($id); // Fetch the class by ID
+        return view('classes.show', compact('class')); // Return the 'classes.show' view with the class data
+    }
+
     public function create()
     {
         return view('classes.create');

@@ -15,6 +15,11 @@ class GroupController extends Controller
         $groups = Group::all();
         return view('groups.index', compact('groups'));
     }
+    public function show($id)
+    {
+        $group = Group::findOrFail($id); // Fetch the group by ID
+        return view('groups.show', compact('group')); // Return the 'groups.show' view with the group data
+    }
 
     public function create()
     {

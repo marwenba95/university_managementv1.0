@@ -15,6 +15,11 @@ class AdminController extends Controller
         $admins = Admin::all();
         return view('admins.index', compact('admins'));
     }
+    public function show($id)
+    {
+        $admin = Admin::findOrFail($id); // Fetch the admin by ID
+        return view('admins.show', compact('admin')); // Return the 'admins.show' view with the admin data
+    }
 
     public function create()
     {

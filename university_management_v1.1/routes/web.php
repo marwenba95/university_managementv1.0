@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -7,29 +13,38 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Apply 'auth' and 'verified' middleware to the dashboard route
+// Dashboard route with 'auth' and 'verified' middleware
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Apply 'auth' middleware to profile routes
+// Profile routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Apply the 'checkRole' middleware to specific routes
+// Admin routes with 'checkRole:admin' middleware
 Route::middleware(['auth', 'checkRole:admin'])->group(function () {
     Route::get('/admin', function () {
         return 'Admin Dashboard';
     });
-
-    // You can add more admin-specific routes here
     Route::get('/admin/settings', function () {
         return 'Admin Settings';
     });
+
+    // Add resource routes for admin-related resources
+    Route::resource('users', UserController::class);
+    Route::resource('classes', ClassController::class);
+    Route::resource('groups', GroupController::class);
 });
 
-// Require additional routes for authentication
+// Add resource routes for students and teachers
+Route::middleware('auth')->group(function () {
+    Route::resource('students', StudentController::class);
+    Route::resource('teachers', TeacherController::class);
+});
+
+// Include auth routes
 require __DIR__.'/auth.php';

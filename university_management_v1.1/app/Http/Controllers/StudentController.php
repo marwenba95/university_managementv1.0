@@ -37,9 +37,10 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $student = Student::findOrFail($id); // Fetch the student by ID
+        return view('students.show', compact('student')); // Return the 'students.show' view with the student data
     }
 
     /**

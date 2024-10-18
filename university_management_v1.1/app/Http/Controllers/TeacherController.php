@@ -12,6 +12,11 @@ class TeacherController extends Controller
         $teachers = Teacher::all();
         return view('teachers.index', compact('teachers'));
     }
+    public function show($id)
+    {
+        $teacher = Teacher::findOrFail($id); // Fetch the teacher by ID
+        return view('teachers.show', compact('teacher')); // Return the 'teachers.show' view with the teacher data
+    }
 
     public function create()
     {
